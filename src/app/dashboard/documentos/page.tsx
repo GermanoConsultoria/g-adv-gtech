@@ -8,9 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { documentos, formatDate } from "@/lib/mock-data";
+import { formatDate } from "@/lib/mock-data";
+import { getDocumentos } from "@/lib/data";
 
-export default function DocumentosPage() {
+export default async function DocumentosPage() {
+  const documentos = await getDocumentos();
+
   return (
     <div className="flex flex-col gap-6">
       <div>

@@ -1,7 +1,8 @@
 import { Calendar, MapPin, Video } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { agendamentos, formatDate, type StatusAgendamento } from "@/lib/mock-data";
+import { formatDate, type StatusAgendamento } from "@/lib/mock-data";
+import { getAgendamentos } from "@/lib/data";
 
 const statusVariant: Record<StatusAgendamento, "default" | "secondary" | "destructive"> = {
   Confirmado: "default",
@@ -9,7 +10,8 @@ const statusVariant: Record<StatusAgendamento, "default" | "secondary" | "destru
   Cancelado: "destructive",
 };
 
-export default function AgendamentoPage() {
+export default async function AgendamentoPage() {
+  const agendamentos = await getAgendamentos();
   const confirmados = agendamentos.filter((a) => a.status === "Confirmado").length;
   const pendentes = agendamentos.filter((a) => a.status === "Pendente").length;
   const ordenados = [...agendamentos].sort((a, b) => (a.data + a.hora).localeCompare(b.data + b.hora));

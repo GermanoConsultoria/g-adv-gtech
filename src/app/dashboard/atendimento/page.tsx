@@ -2,7 +2,8 @@ import { MessageSquare, Mail, Smartphone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { atendimentos, formatDate, type Canal } from "@/lib/mock-data";
+import { formatDate, type Canal } from "@/lib/mock-data";
+import { getAtendimentos } from "@/lib/data";
 
 const canalIcon: Record<Canal, typeof MessageSquare> = {
   WhatsApp: Smartphone,
@@ -15,7 +16,8 @@ function initials(nome: string) {
   return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase();
 }
 
-export default function AtendimentoPage() {
+export default async function AtendimentoPage() {
+  const atendimentos = await getAtendimentos();
   const abertos = atendimentos.filter((a) => a.status === "Aberto").length;
   const naoLidas = atendimentos.reduce((acc, a) => acc + a.naoLidas, 0);
   const ordenados = [...atendimentos].sort((a, b) => b.data.localeCompare(a.data));

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { tarefas, formatDate, type ColunaTarefa, type PrioridadeTarefa } from "@/lib/mock-data";
+import { formatDate, type ColunaTarefa, type PrioridadeTarefa } from "@/lib/mock-data";
+import { getTarefas } from "@/lib/data";
 
 const colunas: ColunaTarefa[] = ["A fazer", "Em andamento", "Em revisão", "Concluído"];
 
@@ -10,7 +11,9 @@ const prioridadeVariant: Record<PrioridadeTarefa, "destructive" | "default" | "s
   Baixa: "secondary",
 };
 
-export default function KanbanPage() {
+export default async function KanbanPage() {
+  const tarefas = await getTarefas();
+
   return (
     <div className="flex flex-col gap-6">
       <div>

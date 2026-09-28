@@ -9,9 +9,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { transacoesPix, formatCurrency, formatDate } from "@/lib/mock-data";
+import { formatCurrency, formatDate } from "@/lib/mock-data";
+import { getTransacoesPix } from "@/lib/data";
 
-export default function InterIntegracaoPage() {
+export default async function InterIntegracaoPage() {
+  const transacoesPix = await getTransacoesPix();
   const recebido = transacoesPix
     .filter((t) => t.tipo === "Recebido")
     .reduce((acc, t) => acc + t.valor, 0);

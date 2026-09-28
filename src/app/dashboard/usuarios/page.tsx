@@ -9,7 +9,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { usuarios, formatDate, type CargoUsuario } from "@/lib/mock-data";
+import { formatDate, type CargoUsuario } from "@/lib/mock-data";
+import { getUsuarios } from "@/lib/data";
 
 const cargoVariant: Record<CargoUsuario, "default" | "secondary" | "outline"> = {
   Administrador: "default",
@@ -23,7 +24,8 @@ function initials(nome: string) {
   return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase();
 }
 
-export default function UsuariosPage() {
+export default async function UsuariosPage() {
+  const usuarios = await getUsuarios();
   const ativos = usuarios.filter((u) => u.status === "Ativo").length;
 
   return (

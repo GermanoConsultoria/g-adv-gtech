@@ -1,9 +1,10 @@
 import { CheckCircle2, MessageCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { atendimentos } from "@/lib/mock-data";
+import { getAtendimentos } from "@/lib/data";
 
-export default function WhatsappIntegracaoPage() {
+export default async function WhatsappIntegracaoPage() {
+  const atendimentos = await getAtendimentos();
   const viaWhatsapp = atendimentos.filter((a) => a.canal === "WhatsApp");
   const abertas = viaWhatsapp.filter((a) => a.status === "Aberto").length;
 

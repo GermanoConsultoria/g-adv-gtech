@@ -9,14 +9,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { posts, formatDate, type StatusPost } from "@/lib/mock-data";
+import { formatDate, type StatusPost } from "@/lib/mock-data";
+import { getPosts } from "@/lib/data";
 
 const statusVariant: Record<StatusPost, "default" | "secondary"> = {
   Publicado: "default",
   Rascunho: "secondary",
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getPosts();
   const publicados = posts.filter((p) => p.status === "Publicado").length;
 
   return (

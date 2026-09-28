@@ -9,7 +9,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { prazos, formatDate, type PrioridadePrazo } from "@/lib/mock-data";
+import { formatDate, type PrioridadePrazo } from "@/lib/mock-data";
+import { getPrazos } from "@/lib/data";
 
 const prioridadeVariant: Record<PrioridadePrazo, "destructive" | "default" | "secondary"> = {
   Urgente: "destructive",
@@ -17,7 +18,8 @@ const prioridadeVariant: Record<PrioridadePrazo, "destructive" | "default" | "se
   Normal: "secondary",
 };
 
-export default function PrazosPage() {
+export default async function PrazosPage() {
+  const prazos = await getPrazos();
   const ordenados = [...prazos].sort((a, b) => a.data.localeCompare(b.data));
 
   return (

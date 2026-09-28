@@ -9,7 +9,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { notasFiscais, formatCurrency, formatDate } from "@/lib/mock-data";
+import { formatCurrency, formatDate } from "@/lib/mock-data";
+import { getNotasFiscais } from "@/lib/data";
 
 const statusVariant = {
   Emitida: "default",
@@ -17,7 +18,8 @@ const statusVariant = {
   Cancelada: "destructive",
 } as const;
 
-export default function NfseIntegracaoPage() {
+export default async function NfseIntegracaoPage() {
+  const notasFiscais = await getNotasFiscais();
   const emitidas = notasFiscais.filter((n) => n.status === "Emitida").length;
 
   return (

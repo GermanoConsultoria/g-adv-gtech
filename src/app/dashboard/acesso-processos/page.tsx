@@ -8,9 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { acessosProcessos } from "@/lib/mock-data";
+import { getAcessosProcessos } from "@/lib/data";
 
-export default function AcessoProcessosPage() {
+export default async function AcessoProcessosPage() {
+  const acessosProcessos = await getAcessosProcessos();
+
   return (
     <div className="flex flex-col gap-6">
       <div>
