@@ -9,14 +9,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { movimentos, formatCurrency, formatDate, type StatusMovimento } from "@/lib/mock-data";
+import { formatCurrency, formatDate, type StatusMovimento } from "@/lib/mock-data";
+import { getMovimentos } from "@/lib/data";
 
 const statusVariant: Record<StatusMovimento, "default" | "secondary"> = {
   Pago: "default",
   Pendente: "secondary",
 };
 
-export default function FinanceiroPage() {
+export default async function FinanceiroPage() {
+  const movimentos = await getMovimentos();
   const receitas = movimentos.filter((m) => m.tipo === "Receita").reduce((acc, m) => acc + m.valor, 0);
   const despesas = movimentos.filter((m) => m.tipo === "Despesa").reduce((acc, m) => acc + m.valor, 0);
   const saldo = receitas - despesas;

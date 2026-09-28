@@ -9,14 +9,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { clientes, formatDate } from "@/lib/mock-data";
+import { formatDate } from "@/lib/mock-data";
+import { getClientes } from "@/lib/data";
 
 function initials(nome: string) {
   const parts = nome.split(" ").filter(Boolean);
   return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase();
 }
 
-export default function ClientesPage() {
+export default async function ClientesPage() {
+  const clientes = await getClientes();
+
   return (
     <div className="flex flex-col gap-6">
       <div>

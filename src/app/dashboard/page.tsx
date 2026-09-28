@@ -3,14 +3,8 @@ import { Briefcase, CalendarClock, Users, Wallet, ArrowRight } from "lucide-reac
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  clientes,
-  processos,
-  prazos,
-  movimentos,
-  formatCurrency,
-  formatDate,
-} from "@/lib/mock-data";
+import { formatCurrency, formatDate } from "@/lib/mock-data";
+import { getClientes, getProcessos, getPrazos, getMovimentos } from "@/lib/data";
 
 const prioridadeVariant = {
   Urgente: "destructive",
@@ -24,7 +18,14 @@ const statusVariant = {
   Concluído: "outline",
 } as const;
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const [clientes, processos, prazos, movimentos] = await Promise.all([
+    getClientes(),
+    getProcessos(),
+    getPrazos(),
+    getMovimentos(),
+  ]);
+
   const processosAtivos = processos.filter((p) => p.status !== "Concluído").length;
   const proximosPrazos = [...prazos].sort((a, b) => a.data.localeCompare(b.data)).slice(0, 5);
   const receitaMes = movimentos
